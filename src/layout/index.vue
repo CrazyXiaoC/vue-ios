@@ -1,7 +1,7 @@
 <template>
-  <div ref="layout" class="layout">
+  <div id="layout" ref="layout" class="layout">
 
-    <div ref="main-view" class="main-view"  
+    <div id="main-view" ref="main-view" class="main-view"  
       @touchstart="touchStart($event)"
       @touchmove="touchMove($event)"
       @touchend="touchEnd($event)"
@@ -254,6 +254,17 @@ export default {
       this.eventTimerId = null   
       // 手指长按事件    
       //console.log('手指长按事件触发')
+
+      let obj = this.$message({ 
+        message: Math.floor(Math.random()*100), 
+        duration: 3000, 
+        type: 'success' 
+      })
+
+      let lock = this.$refs['lock-screen-view']
+
+      console.log('124', obj, lock)
+
     },
     lockScreenViewUToDMove(dY) {
       this.lockScreenView.style.top = - this.viewHeight + dY + 'px'
