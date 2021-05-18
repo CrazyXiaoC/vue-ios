@@ -1,39 +1,14 @@
-'use strict'
-
-const port = 8081 // dev port
-
 module.exports = {
-  publicPath: '/',
-  outputDir: 'dist',
-  assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development' ? 'error' : false,
-  productionSourceMap: false,
   devServer: {
-    port: port,
+    port: 8081,
     open: true,
-    overlay: {
-      warnings: false,
-      errors: true
-    },
-    // proxy: {
-    //   // change xxx-api/login => mock/login
-    //   // detail: https://cli.vuejs.org/config/#devserver-proxy
-    //   [process.env.VUE_APP_BASE_API]: {
-    //     target: `http://localhost:${port}/mock`,
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       ['^' + process.env.VUE_APP_BASE_API]: ''
-    //     }
-    //   }
-    // },
     proxy: {
-      '/api': {
-      target: 'http://172.20.10.2:8081', //后端地址
-      secure: false,  // 如果是https接口，需要配置这个参数
-      ws: true,//是否代理websockets
-      changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
+      '/api': { // 匹配所有以 '/api'开头的请求路径
+        target: 'http://172.20.10.2:8081', //代理目标的基础路径
+        secure: false,  // 如果是https接口，需要配置这个参数
+        changeOrigin: true, // 是否支持跨域
+        pathRewrite: {  // 路径重写
+          '^/api': '' // 使用 `/api` 代替 `target` 要访问的跨域的域名
         }
       }
     }

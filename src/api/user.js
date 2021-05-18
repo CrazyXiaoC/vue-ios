@@ -62,7 +62,7 @@ export function delUser(id) {
 
 export function getSystemConfigs() {
   return request({
-    url: '/system-configs',
+    url: '/api/system-configs',
     method: 'get'
   })
 }

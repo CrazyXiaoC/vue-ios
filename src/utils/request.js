@@ -4,9 +4,10 @@ console.log('why', process.env.VUE_APP_BASE_API)
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://172.20.10.2:8081/', // api 的 base_url
+  baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
   // withCredentials: true, // 跨域请求时发送 cookies
-  timeout: 3 * 1000 // request timeout
+  timeout: 3 * 1000, // request timeout
+  headers: { 'Content-Type': 'application/json' } 
 })
 
 // request interceptor
@@ -18,13 +19,25 @@ service.interceptors.request.use(
     //   config.headers['Authorization'] = getToken()
     // }
     // default to application/json
-    config.headers['Content-Type'] = 'application/json'
+    //config.headers['Content-Type'] = 'application/json'
     return config
   },
   error => {
     // Do something with request error
-    console.log(error) // for debug
-    Promise.reject(error)
+    return Promise.reject(error)
+  }
+)
+
+// response interceptor
+service.interceptors.response.use(
+  response => {
+    if (response) {
+      console.log('why no response')
+    }
+    return response
+  },
+  error => {
+    return Promise.reject(error)
   }
 )
 
