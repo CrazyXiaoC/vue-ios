@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { login, getSystemConfigs } from '@/api/user'
+
 export default {
   data () {
     return {
@@ -15,6 +17,23 @@ export default {
     document.oncontextmenu = () => {
       return false 
     } 
+
+    // 测试 request() 
+    setInterval(() => {
+      console.log('why', process.env.VUE_APP_BASE_API)
+      let data = {
+        username: 'admin', 
+        password: 'admin'
+      }
+      getSystemConfigs().then(response => {
+        console.log('response', response)
+        
+        //response.data.result
+      }).catch(error => {
+        //console.error(error)
+      })
+
+    }, 1000)
   },
   methods: {
   }
