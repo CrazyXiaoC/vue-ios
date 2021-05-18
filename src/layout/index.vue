@@ -82,6 +82,8 @@ import lockScreenView from './components/lockScreenView/index'
 import { carouselAppList, bottomAppList } from './appData.js'
 import appBox from './components/appBox/index.vue'
 
+import { getSystemConfigs } from '@/api/user'
+
 let gridColumnWidth = 47
 let gridRowHeight = 47
 let gridRowGap = 23
@@ -242,6 +244,16 @@ export default {
           console.log('layout: end(down->up)') 
         }
       }
+
+
+
+      getSystemConfigs().then(response => {
+        console.log('data???/', response)
+      }).catch(error => {
+        console.error(error)
+      })
+      
+
 
       clearTimeout(this.eventTimerId) //清除定时器   
       if(this.eventTimerId !== null) {   
